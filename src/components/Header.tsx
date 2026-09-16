@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Languages, Sun, GitFork } from "lucide-react";
 
 export default function Header() {
@@ -5,7 +6,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-[#0b0f17]/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <a
+        <Link
           href="/"
           className="flex items-center gap-2.5 rounded-md"
           aria-label="Fix11y — página inicial"
@@ -19,7 +20,7 @@ export default function Header() {
           <span className="text-white font-bold text-[1.1rem] tracking-tight">
             Fix11y
           </span>
-        </a>
+        </Link>
 
         {/* Actions */}
         <nav className="flex items-center gap-1" aria-label="Ações do cabeçalho">
