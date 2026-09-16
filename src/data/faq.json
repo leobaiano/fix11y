@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "criterion": "3.3.2",
+    "title": "Um campo de formulário não possui rótulo",
+    "category": "Formulários",
+    "level": "A",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions",
+    "userImpact": "Usuários de leitores de tela não conseguem identificar a finalidade do campo. Tecnologias assistivas anunciam apenas 'campo de edição' sem contexto, tornando o formulário inacessível para pessoas cegas ou com baixa visão.",
+    "codeWrong": "<div>\n  <input type=\"text\" placeholder=\"Nome completo\" />\n</div>",
+    "codeRight": "<div>\n  <label for=\"full-name\">Nome completo</label>\n  <input\n    id=\"full-name\"\n    type=\"text\"\n    name=\"full-name\"\n    autocomplete=\"name\"\n    aria-required=\"true\"\n  />\n</div>"
+  },
+  {
+    "id": "2",
+    "criterion": "2.5.5",
+    "title": "Como oferecer alvos de toque confortáveis?",
+    "category": "Formulários",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced",
+    "userImpact": "Alvos pequenos dificultam a interação para usuários com tremores, dificuldades motoras ou que usam o dedo em telas touch. O tamanho mínimo recomendado é 44 x 44 CSS pixels.",
+    "codeWrong": "<button style=\"padding: 2px 4px; font-size: 10px\">\n  Enviar\n</button>",
+    "codeRight": "<button\n  type=\"submit\"\n  style=\"\n    min-height: 44px;\n    min-width: 44px;\n    padding: 10px 20px;\n    font-size: 1rem;\n  \"\n>\n  Enviar\n</button>"
+  },
+  {
+    "id": "3",
+    "criterion": "1.1.1",
+    "title": "Imagem sem texto alternativo",
+    "category": "Imagens & Mídia",
+    "level": "A",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content",
+    "userImpact": "Leitores de tela leem o nome do arquivo ou ignoram a imagem completamente. Usuários cegos perdem informações visuais essenciais para compreender o conteúdo.",
+    "codeWrong": "<img src=\"/logo.png\" />",
+    "codeRight": "<img\n  src=\"/logo.png\"\n  alt=\"Logo da Fix11y - plataforma de acessibilidade web\"\n  width=\"120\"\n  height=\"40\"\n/>"
+  },
+  {
+    "id": "4",
+    "criterion": "2.4.7",
+    "title": "Indicador de foco removido via CSS",
+    "category": "Teclado",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
+    "userImpact": "Usuários que navegam exclusivamente pelo teclado (incluindo pessoas com deficiência motora) perdem completamente a referência visual de onde estão na página, tornando a navegação impossível.",
+    "codeWrong": "/* CSS que remove o foco */\n* {\n  outline: none;\n}\n\nbutton:focus {\n  outline: 0;\n}",
+    "codeRight": "/* CSS que garante foco visível */\n:focus-visible {\n  outline: 2px solid #facc15;\n  outline-offset: 3px;\n  border-radius: 4px;\n}\n\n/* Remova apenas quando fornecer\n   um estilo alternativo legível */\n.custom-focus:focus-visible {\n  box-shadow: 0 0 0 3px #facc15;\n}"
+  },
+  {
+    "id": "5",
+    "criterion": "1.4.3",
+    "title": "Contraste de cor insuficiente no texto",
+    "category": "Cores & Contraste",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum",
+    "userImpact": "Texto com contraste baixo é ilegível para pessoas com baixa visão, daltonismo ou que usam telas em ambientes com muita luz. A proporção mínima é 4,5:1 para texto normal.",
+    "codeWrong": "/* Contraste: 2.3:1 - REPROVADO */\n.card-text {\n  color: #9ca3af;    /* cinza claro */\n  background: #e5e7eb; /* cinza ainda mais claro */\n}",
+    "codeRight": "/* Contraste: 7:1 - APROVADO AAA */\n.card-text {\n  color: #111827;    /* quase preto */\n  background: #f9fafb; /* quase branco */\n}\n\n/* Ou no modo escuro */\n.dark .card-text {\n  color: #f1f5f9;    /* quase branco */\n  background: #1e293b; /* azul escuro */\n}"
+  }
+]

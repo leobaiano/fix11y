@@ -1,8 +1,13 @@
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import MainContent from "@/components/MainContent";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Fix11y</h1>
-      <p className="mt-4 text-gray-400">Ambiente e CI/CD configurados com sucesso!</p>
-    </main>
+    <>
+      <Header />
+      <MainContent />
+      <Footer />
+    </>
   );
 }

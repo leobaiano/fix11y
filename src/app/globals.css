@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Backgrounds ─────────────────────────────────────────── */
+  --color-app-dark: #0b0f17;
+  --color-surface-card: #111827;
+  --color-surface-expanded: #1e293b;
+  --color-footer-light: #f1f5f9;
+
+  /* ─── Brand & Accents ─────────────────────────────────────── */
+  --color-brand-primary: #22c55e;
+  --color-brand-secondary: #10b981;
+  --color-focus-ring: #facc15;
+
+  /* ─── WCAG Levels ─────────────────────────────────────────── */
+  --color-wcag-a: #22c55e;
+  --color-wcag-aa: #eab308;
+  --color-wcag-aaa: #3b82f6;
+
+  /* ─── Code Boxes ──────────────────────────────────────────── */
+  --color-code-error-bg: #3f1414;
+  --color-code-error-border: #7f1d1d;
+  --color-code-error-text: #fca5a5;
+  --color-code-success-bg: #064e3b;
+  --color-code-success-border: #047857;
+  --color-code-success-text: #6ee7b7;
+
+  /* ─── Typography ──────────────────────────────────────────── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-app-dark);
+    color: #f1f5f9;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-surface-card); }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #475569; }
+}
+
+/* ─── Components ─────────────────────────────────────────────── */
+@layer components {
+  .code-block {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .code-block-error {
+    background-color: var(--color-code-error-bg);
+    border: 1px solid var(--color-code-error-border);
+    color: var(--color-code-error-text);
+  }
+
+  .code-block-success {
+    background-color: var(--color-code-success-bg);
+    border: 1px solid var(--color-code-success-border);
+    color: var(--color-code-success-text);
+  }
+
+  .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .accordion-content.open {
+    grid-template-rows: 1fr;
+  }
+
+  .accordion-inner {
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+}
