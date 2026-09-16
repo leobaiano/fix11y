@@ -109,6 +109,22 @@ git checkout -b feature/adiciona-criterio-x
 - Se for adicionar ou corrigir um conteúdo de acessibilidade, edite o arquivo `src/data/faq.json`.
 - Certifique-se de preencher todos os campos do JSON e manter a formatação válida.
 
+### Checklist editorial para novos itens
+
+Antes de enviar um item novo, confirme:
+
+- [ ] O `title` descreve um sintoma observável, no mesmo vocabulário de uma issue (por exemplo, “Botão de ícone sem nome acessível”).
+- [ ] O `criterion` principal e todos os `criteria` relacionados foram conferidos na documentação WCAG 2.2 do W3C.
+- [ ] O `summary` apresenta uma ação concreta em uma frase curta.
+- [ ] O `userImpact` explica quem é afetado e qual tarefa fica difícil ou impossível, sem depender apenas de termos técnicos.
+- [ ] Os exemplos em `codeWrong` e `codeRight` são mínimos, válidos e usam sintaxe coerente com o contexto declarado: HTML, CSS, JavaScript ou React/JSX.
+- [ ] O `codeRight` resolve o problema descrito sem introduzir uma solução incompleta, como simular um controle nativo com ARIA.
+- [ ] `howToTest` contém passos manuais que permitem confirmar a correção.
+- [ ] `keywords` inclui termos que uma pessoa desenvolvedora provavelmente pesquisaria, incluindo sinônimos, atributos e APIs relevantes.
+- [ ] `notes` registra ressalvas importantes, exceções ou decisões que evitem a cópia inadequada do exemplo.
+- [ ] O item está na categoria mais provável de ser escolhida por quem procura a solução.
+- [ ] O JSON está formatado com dois espaços de indentação e uma propriedade por linha.
+
 ### 5. Teste e confirme as mudanças
 Verifique se a aplicação está rodando sem erros e se o build é gerado corretamente:
 ```bash
