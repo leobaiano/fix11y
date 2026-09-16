@@ -6,52 +6,162 @@
     "category": "Formulários",
     "level": "A",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions",
-    "userImpact": "Usuários de leitores de tela não conseguem identificar a finalidade do campo. Tecnologias assistivas anunciam apenas 'campo de edição' sem contexto, tornando o formulário inacessível para pessoas cegas ou com baixa visão.",
+    "userImpact": "Usuários de leitores de tela não conseguem identificar a finalidade do campo. Tecnologias assistivas anunciam apenas 'campo de edição' sem contexto.",
     "codeWrong": "<div>\n  <input type=\"text\" placeholder=\"Nome completo\" />\n</div>",
-    "codeRight": "<div>\n  <label for=\"full-name\">Nome completo</label>\n  <input\n    id=\"full-name\"\n    type=\"text\"\n    name=\"full-name\"\n    autocomplete=\"name\"\n    aria-required=\"true\"\n  />\n</div>"
+    "codeRight": "<div>\n  <label for=\"full-name\">Nome completo</label>\n  <input id=\"full-name\" type=\"text\" name=\"full-name\" autocomplete=\"name\" />\n</div>"
   },
   {
     "id": "2",
-    "criterion": "2.5.5",
-    "title": "Como oferecer alvos de toque confortáveis?",
-    "category": "Formulários",
-    "level": "AAA",
-    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced",
-    "userImpact": "Alvos pequenos dificultam a interação para usuários com tremores, dificuldades motoras ou que usam o dedo em telas touch. O tamanho mínimo recomendado é 44 x 44 CSS pixels.",
-    "codeWrong": "<button style=\"padding: 2px 4px; font-size: 10px\">\n  Enviar\n</button>",
-    "codeRight": "<button\n  type=\"submit\"\n  style=\"\n    min-height: 44px;\n    min-width: 44px;\n    padding: 10px 20px;\n    font-size: 1rem;\n  \"\n>\n  Enviar\n</button>"
-  },
-  {
-    "id": "3",
     "criterion": "1.1.1",
     "title": "Imagem sem texto alternativo",
     "category": "Imagens & Mídia",
     "level": "A",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content",
-    "userImpact": "Leitores de tela leem o nome do arquivo ou ignoram a imagem completamente. Usuários cegos perdem informações visuais essenciais para compreender o conteúdo.",
+    "userImpact": "Leitores de tela leem o nome do arquivo ou ignoram a imagem completamente. Usuários cegos perdem o contexto visual do conteúdo.",
     "codeWrong": "<img src=\"/logo.png\" />",
-    "codeRight": "<img\n  src=\"/logo.png\"\n  alt=\"Logo da Fix11y - plataforma de acessibilidade web\"\n  width=\"120\"\n  height=\"40\"\n/>"
+    "codeRight": "<img src=\"/logo.png\" alt=\"Logo do Fix11y - Guia de acessibilidade web\" width=\"120\" height=\"40\" />"
+  },
+  {
+    "id": "3",
+    "criterion": "1.3.1",
+    "title": "Uso de divs ou spans em vez de botões nativos",
+    "category": "Teclado",
+    "level": "A",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships",
+    "userImpact": "Elementos não semânticos (como div/span) não recebem foco do teclado via tecla Tab e não respondem à tecla Enter ou Espaço.",
+    "codeWrong": "<div onclick=\"enviar()\">Enviar</div>",
+    "codeRight": "<button type=\"button\" onclick=\"enviar()\">Enviar</button>"
   },
   {
     "id": "4",
-    "criterion": "2.4.7",
-    "title": "Indicador de foco removido via CSS",
+    "criterion": "2.1.1",
+    "title": "Ações acionáveis apenas por mouse (sem suporte a teclado)",
     "category": "Teclado",
-    "level": "AA",
-    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
-    "userImpact": "Usuários que navegam exclusivamente pelo teclado (incluindo pessoas com deficiência motora) perdem completamente a referência visual de onde estão na página, tornando a navegação impossível.",
-    "codeWrong": "/* CSS que remove o foco */\n* {\n  outline: none;\n}\n\nbutton:focus {\n  outline: 0;\n}",
-    "codeRight": "/* CSS que garante foco visível */\n:focus-visible {\n  outline: 2px solid #facc15;\n  outline-offset: 3px;\n  border-radius: 4px;\n}\n\n/* Remova apenas quando fornecer\n   um estilo alternativo legível */\n.custom-focus:focus-visible {\n  box-shadow: 0 0 0 3px #facc15;\n}"
+    "level": "A",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
+    "userImpact": "Pessoas que utilizam navegação por teclado ou tecnologias assistivas ficam impossibilitadas de acionar links, menus ou botões.",
+    "codeWrong": "<a onclick=\"abrirModal()\">Saiba mais</a>",
+    "codeRight": "<a href=\"#\" onclick=\"abrirModal(event)\" role=\"button\">Saiba mais</a>"
   },
   {
     "id": "5",
+    "criterion": "4.1.2",
+    "title": "Botão de ícone sem nome acessível (aria-label)",
+    "category": "Imagens & Mídia",
+    "level": "A",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value",
+    "userImpact": "Botões com apenas ícones visuais são lidos como 'botão' sem indicar a ação (ex: fechar, buscar, excluir).",
+    "codeWrong": "<button>\n  <i class=\"icon-close\"></i>\n</button>",
+    "codeRight": "<button aria-label=\"Fechar janela modal\">\n  <i class=\"icon-close\" aria-hidden=\"true\"></i>\n</button>"
+  },
+  {
+    "id": "6",
+    "criterion": "2.4.7",
+    "title": "Indicador de foco removido via CSS (outline: none)",
+    "category": "Teclado",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
+    "userImpact": "Usuários navegando por teclado perdem a referência visual de qual elemento está selecionado na tela.",
+    "codeWrong": "button:focus {\n  outline: none;\n}",
+    "codeRight": ":focus-visible {\n  outline: 2px solid #facc15;\n  outline-offset: 3px;\n}"
+  },
+  {
+    "id": "7",
     "criterion": "1.4.3",
     "title": "Contraste de cor insuficiente no texto",
     "category": "Cores & Contraste",
     "level": "AA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum",
-    "userImpact": "Texto com contraste baixo é ilegível para pessoas com baixa visão, daltonismo ou que usam telas em ambientes com muita luz. A proporção mínima é 4,5:1 para texto normal.",
-    "codeWrong": "/* Contraste: 2.3:1 - REPROVADO */\n.card-text {\n  color: #9ca3af;    /* cinza claro */\n  background: #e5e7eb; /* cinza ainda mais claro */\n}",
-    "codeRight": "/* Contraste: 7:1 - APROVADO AAA */\n.card-text {\n  color: #111827;    /* quase preto */\n  background: #f9fafb; /* quase branco */\n}\n\n/* Ou no modo escuro */\n.dark .card-text {\n  color: #f1f5f9;    /* quase branco */\n  background: #1e293b; /* azul escuro */\n}"
+    "userImpact": "Texto com baixo contraste fica ilegível para pessoas com baixa visão, daltonismo ou sob luz solar intensa.",
+    "codeWrong": "/* Contraste 2.1:1 - Reprovado */\n.text {\n  color: #9ca3af;\n  background: #e5e7eb;\n}",
+    "codeRight": "/* Contraste 7:1 - Aprovado */\n.text {\n  color: #111827;\n  background: #f9fafb;\n}"
+  },
+  {
+    "id": "8",
+    "criterion": "2.4.4",
+    "title": "Links genéricos sem contexto (\"Clique aqui\", \"Leia mais\")",
+    "category": "Teclado",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context",
+    "userImpact": "Leitores de tela conseguem listar todos os links da página. Links genéricos perdem o sentido quando lidos fora do parágrafo.",
+    "codeWrong": "<p>Para ver o relatório completo <a href=\"/pdf\">clique aqui</a>.</p>",
+    "codeRight": "<p>Acesse o <a href=\"/pdf\">relatório financeiro completo em PDF</a>.</p>"
+  },
+  {
+    "id": "9",
+    "criterion": "1.4.11",
+    "title": "Contraste de componentes de interface e bordas de inputs",
+    "category": "Cores & Contraste",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast",
+    "userImpact": "Bordas de formulários e estados de botões com contraste menor que 3:1 impedem a identificação do limite dos campos.",
+    "codeWrong": "input {\n  border: 1px solid #f3f4f6; /* Contraste ruim */\n}",
+    "codeRight": "input {\n  border: 1px solid #6b7280; /* Contraste >= 3:1 */\n}"
+  },
+  {
+    "id": "10",
+    "criterion": "3.3.1",
+    "title": "Erros de formulário identificados apenas por cor",
+    "category": "Formulários",
+    "level": "AA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification",
+    "userImpact": "Usuários daltônicos ou cegos não identificam campos incorretos se a única indicação for uma borda vermelha.",
+    "codeWrong": "<!-- Aponta erro apenas com cor vermelha -->\n<input class=\"border-red-500\" type=\"email\" />",
+    "codeRight": "<label for=\"email\">E-mail</label>\n<input id=\"email\" aria-invalid=\"true\" aria-describedby=\"email-error\" />\n<span id=\"email-error\" className=\"text-red-500\">E-mail em formato inválido.</span>"
+  },
+  {
+    "id": "11",
+    "criterion": "2.5.5",
+    "title": "Alvos de toque muito pequenos para dispositivos móveis",
+    "category": "Formulários",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced",
+    "userImpact": "Alvos menores que 44x44px dificultam o clique para pessoas com tremores motores ou navegação por toque.",
+    "codeWrong": "<button style=\"width: 20px; height: 20px;\">X</button>",
+    "codeRight": "<button style=\"min-width: 44px; min-height: 44px; padding: 10px;\">Fechar</button>"
+  },
+  {
+    "id": "12",
+    "criterion": "1.4.6",
+    "title": "Contraste aprimorado para texto (Nível AAA - 7:1)",
+    "category": "Cores & Contraste",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced",
+    "userImpact": "Garante leitura confortável para usuários com severa perda de acuidade visual.",
+    "codeWrong": "/* Contraste 4.5:1 (Atende apenas AA) */\n.body-text {\n  color: #4b5563;\n  background: #ffffff;\n}",
+    "codeRight": "/* Contraste 12:1 (Atende AAA) */\n.body-text {\n  color: #111827;\n  background: #ffffff;\n}"
+  },
+  {
+    "id": "13",
+    "criterion": "2.2.3",
+    "title": "Sessão com tempo limite sem opção de desativação",
+    "category": "Teclado",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/no-timing",
+    "userImpact": "Pessoas que precisam de mais tempo para ler ou digitar perdem seus dados sem aviso prévio.",
+    "codeWrong": "/* Desconecta o usuário em 60s automaticamente sem aviso */\nsetTimeout(logout, 60000);",
+    "codeRight": "/* Notifica o usuário e oferece opção de estender o tempo */\nshowTimeoutWarning({ onExtend: keepSessionAlive });"
+  },
+  {
+    "id": "14",
+    "criterion": "2.4.9",
+    "title": "Propósito do link identificado exclusivamente pelo próprio texto",
+    "category": "Teclado",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only",
+    "userImpact": "O destino do link é compreensível sem a necessidade de ler o texto ou parágrafo ao redor.",
+    "codeWrong": "<p>Acesse as diretrizes da norma <a href=\"/wcag\">aqui</a>.</p>",
+    "codeRight": "<p><a href=\"/wcag\">Consultar Diretrizes Oficiais do WCAG 2.2</a></p>"
+  },
+  {
+    "id": "15",
+    "criterion": "3.1.3",
+    "title": "Palavras incomuns ou jargões sem explicação",
+    "category": "Formulários",
+    "level": "AAA",
+    "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/unusual-words",
+    "userImpact": "Pessoas com deficiência cognitiva ou baixa alfabetização encontram dificuldades para entender siglas e termos técnicos.",
+    "codeWrong": "<p>Consulte o documento de a11y antes de subir para prod.</p>",
+    "codeRight": "<p>Consulte o documento de <abbr title=\"Acessibilidade\">a11y</abbr> antes de publicar.</p>"
   }
 ]
