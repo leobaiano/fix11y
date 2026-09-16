@@ -16,14 +16,14 @@ export default function Footer() {
           </div>
 
           <a
-            href="https://github.com"
+            href="https://github.com/leobaiano/fix11y"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contribuir com o Fix11y no GitHub (abre em nova aba)"
             className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#10b981] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#059669] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#facc15]"
           >
             <GitFork size={16} aria-hidden="true" />
-            Contribuir no GitHub
+            Repositório do projeto
           </a>
         </div>
       </div>

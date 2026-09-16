@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ♿ Fix11y
 
-## Getting Started
+> Soluções práticas e rápidas para problemas de acessibilidade web associadas às diretrizes da WCAG 2.2.
 
-First, run the development server:
+O **Fix11y** é um guia interativo e *open-source* projetado para ajudar desenvolvedores e designers a identificar e corrigir rapidamente falhas comuns de acessibilidade (a11y) em interfaces web. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O projeto funciona como um FAQ interativo e acessível, mapeando cada problema ao seu respectivo Critério de Sucesso da **WCAG 2.2**, com comparações visuais lado a lado de **"Como NÃO fazer"** vs. **"Como fazer"**.
+
+---
+
+## 🚀 Tecnologias
+
+- **Next.js** (App Router & Static Export)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Lucide React** (Ícones)
+
+---
+
+## 📄 Estrutura de Dados (`faq.json`)
+
+Toda a base de conhecimento do projeto é mantida em um único arquivo JSON localizado em `src/data/faq.json`. Cada item do FAQ segue a estrutura abaixo:
+
+```json
+{
+  "id": "1",
+  "criterion": "3.3.2",
+  "title": "Um campo de formulário não possui rótulo",
+  "category": "Formulários",
+  "level": "A",
+  "wcagUrl": "[https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions)",
+  "userImpact": "Descrição do impacto para o usuário com tecnologia assistiva.",
+  "codeWrong": "<input placeholder=\"Nome\">",
+  "codeRight": "<label for=\"name\">Nome</label>\n<input id=\"name\" type=\"text\">"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Explicação das Propriedades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **`id`**: Identificador único do item (string/número).
+- **`criterion`**: O número do critério de sucesso da WCAG 2.2 (ex: `"3.3.2"` ou `"1.1.1"`).
+- **`title`**: Título resumo da falha de acessibilidade.
+- **`category`**: Categoria do problema. Aceita: `"Formulários"`, `"Teclado"`, `"Imagens & Mídia"` ou `"Cores & Contraste"`.
+- **`level`**: Nível de conformidade da WCAG. Aceita: `"A"`, `"AA"` ou `"AAA"`.
+- **`wcagUrl`**: Link direto para a documentação oficial da especificação no W3C.
+- **`userImpact`**: Explicação clara do impacto real desse problema na navegação de pessoas com deficiência ou usando tecnologias assistivas.
+- **`codeWrong`**: Trecho de código HTML/CSS incorreto (exemplo de como **não** fazer).
+- **`codeRight`**: Trecho de código HTML/CSS corrigido e acessível (exemplo de como **fazer**).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Como rodar o projeto localmente
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/leobaiano/fix11y.git](https://github.com/leobaiano/fix11y.git)
+   cd fix11y
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+   Acesse `http://localhost:3000` no seu navegador.
 
-## Deploy on Vercel
+4. **Testar o build estático:**
+   ```bash
+   npm run build
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Como Contribuir
+
+Contribuições são super bem-vindas! Você pode contribuir adicionando **novos critérios de acessibilidade ao `faq.json`**, corrigindo textos ou melhorando os componentes do projeto.
+
+Siga o passo a passo abaixo para enviar sua contribuição:
+
+### 1. Faça um Fork do projeto
+Clique no botão **Fork** no canto superior direito da página deste repositório para criar uma cópia no seu GitHub.
+
+### 2. Clone o seu Fork
+```bash
+git clone [https://github.com/SEU_USUARIO/fix11y.git](https://github.com/SEU_USUARIO/fix11y.git)
+cd fix11y
+```
+
+### 3. Crie uma Branch para a sua alteração
+```bash
+git checkout -b feature/adiciona-criterio-x
+```
+
+### 4. Faça as alterações
+- Se for adicionar ou corrigir um conteúdo de acessibilidade, edite o arquivo `src/data/faq.json`.
+- Certifique-se de preencher todos os campos do JSON e manter a formatação válida.
+
+### 5. Teste e confirme as mudanças
+Verifique se a aplicação está rodando sem erros e se o build é gerado corretamente:
+```bash
+npm run build
+```
+
+### 6. Faça o Commit e Push
+```bash
+git add .
+git commit -m "feat: adiciona criterio WCAG X.X.X no faq.json"
+git push origin feature/adiciona-criterio-x
+```
+
+### 7. Abra uma Pull Request (PR)
+1. Vá até o repositório original do **Fix11y** no GitHub.
+2. Clique na aba **Pull Requests** e no botão **New Pull Request**.
+3. Selecione a sua branch com as alterações e descreva brevemente o que foi feito.
+4. Envie a PR para análise!
+
+---
+
+## 📜 Licença
+
+Distribuído sob a licença **MIT**. Veja `LICENSE` para mais informações.
