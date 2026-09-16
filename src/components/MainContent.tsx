@@ -9,28 +9,23 @@ import type { FaqItem, WcagLevel, Category } from "@/types/faq";
 
 const faqItems = rawFaq as FaqItem[];
 
-const LEVEL_ORDER: WcagLevel[] = ["A", "AA", "AAA"];
-const LEVEL_LABELS: Record<WcagLevel, string> = {
-  A: "Nível A",
-  AA: "Nível AA",
-  AAA: "Nível AAA",
-};
-const LEVEL_SUBTITLES: Record<WcagLevel, string> = {
-  A: "Requisito mínimo",
-  AA: "Padrão de mercado",
-  AAA: "Avançado",
-};
-const LEVEL_DOT: Record<WcagLevel, string> = {
-  A: "bg-[#22c55e]",
-  AA: "bg-[#eab308]",
-  AAA: "bg-[#3b82f6]",
-};
+const CATEGORY_ORDER: Category[] = [
+  "Formulários",
+  "Interação e teclado",
+  "Componentes e ARIA",
+  "Imagens & Mídia",
+  "Cores & Contraste",
+  "Conteúdo e linguagem",
+  "Tempo e movimento",
+];
 
 function normalizeSearchText(value: string) {
   return value
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toLocaleLowerCase("pt-BR");
+    .toLocaleLowerCase("pt-BR")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 function getSearchableText(item: FaqItem) {
@@ -51,30 +46,64 @@ function getSearchableText(item: FaqItem) {
     .join(" ");
 }
 
+function getSearchScore(item: FaqItem, term: string) {
+  if (!term) return 0;
+
+  const title = normalizeSearchText(item.title);
+  const criterion = normalizeSearchText(item.criterion);
+  const criteria = normalizeSearchText(item.criteria?.join(" ") ?? "");
+  const keywords = normalizeSearchText(item.keywords?.join(" ") ?? "");
+  const summary = normalizeSearchText(item.summary ?? "");
+  const content = normalizeSearchText(getSearchableText(item));
+
+  if (title === term || criterion === term || criteria.includes(term)) {
+    return 100;
+  }
+
+  return (
+    (title.includes(term) ? 60 : 0) +
+    (keywords.includes(term) ? 45 : 0) +
+    (summary.includes(term) ? 30 : 0) +
+    (content.includes(term) ? 10 : 0)
+  );
+}
+
 export default function MainContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<WcagLevel | "ALL">("ALL");
   const [selectedCategory, setSelectedCategory] = useState<Category | "ALL">("ALL");
+  const normalizedSearchTerm = normalizeSearchText(searchTerm);
+  const isSearching = normalizedSearchTerm.length > 0;
 
   const filtered = useMemo(() => {
-    const term = normalizeSearchText(searchTerm.trim());
-    return faqItems.filter((item) => {
-      const matchesSearch =
-        !term ||
-        normalizeSearchText(getSearchableText(item)).includes(term);
-      const matchesLevel = selectedLevel === "ALL" || item.level === selectedLevel;
-      const matchesCategory =
-        selectedCategory === "ALL" || item.category === selectedCategory;
-      return matchesSearch && matchesLevel && matchesCategory;
-    });
-  }, [searchTerm, selectedLevel, selectedCategory]);
+    return faqItems
+      .map((item, index) => ({
+        item,
+        index,
+        score: getSearchScore(item, normalizedSearchTerm),
+      }))
+      .filter(({ item }) => {
+        const matchesSearch =
+          !normalizedSearchTerm ||
+          normalizeSearchText(getSearchableText(item)).includes(normalizedSearchTerm);
+        const matchesLevel = selectedLevel === "ALL" || item.level === selectedLevel;
+        const matchesCategory =
+          selectedCategory === "ALL" || item.category === selectedCategory;
+        return matchesSearch && matchesLevel && matchesCategory;
+      })
+      .sort((first, second) => {
+        if (!isSearching) return first.index - second.index;
+        return second.score - first.score || first.index - second.index;
+      })
+      .map(({ item }) => item);
+  }, [isSearching, normalizedSearchTerm, selectedLevel, selectedCategory]);
 
-  // Group by level in order
+  // Browse by problem domain when there is no explicit search.
   const grouped = useMemo(() => {
-    const map = new Map<WcagLevel, FaqItem[]>();
-    for (const level of LEVEL_ORDER) {
-      const items = filtered.filter((i) => i.level === level);
-      if (items.length > 0) map.set(level, items);
+    const map = new Map<Category, FaqItem[]>();
+    for (const category of CATEGORY_ORDER) {
+      const items = filtered.filter((item) => item.category === category);
+      if (items.length > 0) map.set(category, items);
     }
     return map;
   }, [filtered]);
@@ -126,39 +155,43 @@ export default function MainContent() {
             </p>
           </div>
         ) : (
-          <div className="space-y-10">
-            {LEVEL_ORDER.map((level) => {
-              const items = grouped.get(level);
-              if (!items) return null;
-              return (
-                <section key={level} aria-labelledby={`group-${level}`}>
-                  {/* Group heading */}
-                  <div className="mb-4 flex items-center gap-2 border-b border-white/5 pb-3">
-                    <span
-                      className={`h-2.5 w-2.5 rounded-full ${LEVEL_DOT[level]}`}
-                      aria-hidden="true"
-                    />
-                    <h3
-                      id={`group-${level}`}
-                      className="text-sm font-semibold text-slate-200"
-                    >
-                      {LEVEL_LABELS[level]}
-                    </h3>
-                    <span className="text-sm text-slate-500">
-                      {LEVEL_SUBTITLES[level]}
-                    </span>
-                  </div>
-
-                  {/* Items */}
-                  <div className="space-y-3">
-                    {items.map((item) => (
-                      <AccordionItem key={item.id} item={item} />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
+          isSearching ? (
+            <section aria-label="Resultados ordenados por relevância">
+              <p className="mb-4 text-sm text-slate-400">
+                Resultados por relevância para “{searchTerm.trim()}”
+              </p>
+              <div className="space-y-3">
+                {filtered.map((item) => (
+                  <AccordionItem key={item.id} item={item} />
+                ))}
+              </div>
+            </section>
+          ) : (
+            <div className="space-y-10">
+              {CATEGORY_ORDER.map((category) => {
+                const items = grouped.get(category);
+                if (!items) return null;
+                const headingId = `group-category-${CATEGORY_ORDER.indexOf(category)}`;
+                return (
+                  <section key={category} aria-labelledby={headingId}>
+                    <div className="mb-4 border-b border-white/5 pb-3">
+                      <h3
+                        id={headingId}
+                        className="text-sm font-semibold text-slate-200"
+                      >
+                        {category}
+                      </h3>
+                    </div>
+                    <div className="space-y-3">
+                      {items.map((item) => (
+                        <AccordionItem key={item.id} item={item} />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          )
         )}
       </main>
     </>
