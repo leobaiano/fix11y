@@ -8,6 +8,9 @@ import {
   ExternalLink,
   Copy,
   AlertTriangle,
+  Lightbulb,
+  ClipboardCheck,
+  Info,
 } from "lucide-react";
 import type { FaqItem, WcagLevel } from "@/types/faq";
 
@@ -117,6 +120,25 @@ export default function AccordionItem({ item }: AccordionItemProps) {
       >
         <div className="accordion-inner">
           <div className="space-y-5 px-5 pb-6 pt-1">
+            {/* Recommended solution */}
+            {item.summary && (
+              <div className="flex gap-3 rounded-lg border border-[#047857]/60 bg-[#064e3b]/60 px-4 py-3">
+                <Lightbulb
+                  size={16}
+                  className="mt-0.5 shrink-0 text-[#6ee7b7]"
+                  aria-hidden="true"
+                />
+                <div>
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[#6ee7b7]">
+                    Solução recomendada
+                  </p>
+                  <p className="text-sm leading-relaxed text-[#d1fae5]">
+                    {item.summary}
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* User impact */}
             <div className="flex gap-3 rounded-lg border border-[#92400e]/50 bg-[#451a03]/60 px-4 py-3">
               <AlertTriangle
@@ -133,6 +155,62 @@ export default function AccordionItem({ item }: AccordionItemProps) {
                 </p>
               </div>
             </div>
+
+            {/* Manual validation */}
+            {item.howToTest && item.howToTest.length > 0 && (
+              <section
+                className="rounded-lg border border-sky-900/70 bg-sky-950/30 px-4 py-3"
+                aria-labelledby={`test-${item.id}`}
+              >
+                <div className="flex gap-3">
+                  <ClipboardCheck
+                    size={16}
+                    className="mt-0.5 shrink-0 text-sky-300"
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <h4
+                      id={`test-${item.id}`}
+                      className="mb-1 text-xs font-semibold uppercase tracking-wide text-sky-300"
+                    >
+                      Como validar
+                    </h4>
+                    <ol className="list-decimal space-y-1 pl-4 text-sm leading-relaxed text-sky-100 marker:text-sky-300">
+                      {item.howToTest.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Implementation notes */}
+            {item.notes && item.notes.length > 0 && (
+              <section
+                className="flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3"
+                aria-labelledby={`notes-${item.id}`}
+              >
+                <Info
+                  size={16}
+                  className="mt-0.5 shrink-0 text-slate-300"
+                  aria-hidden="true"
+                />
+                <div>
+                  <h4
+                    id={`notes-${item.id}`}
+                    className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-300"
+                  >
+                    Observações
+                  </h4>
+                  <ul className="space-y-1 text-sm leading-relaxed text-slate-300">
+                    {item.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
 
             {/* WCAG official link */}
             <a
