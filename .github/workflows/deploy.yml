@@ -3,8 +3,8 @@ name: Deploy Fix11y to GitHub Pages
 on:
   push:
     branches: ["main"]
-
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
@@ -27,7 +27,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: 'npm'
 
       - name: Instalar dependências
@@ -36,7 +36,7 @@ jobs:
       - name: Executar Build Estático
         run: npm run build
 
-      - name: Upload dos arquivos estáticos (pasta out)
+      - name: Upload dos arquivos estáticos
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
