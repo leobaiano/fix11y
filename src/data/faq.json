@@ -69,7 +69,7 @@
     ],
     "title": "Ação implementada com div ou span em vez de botão",
     "summary": "Para disparar uma ação, use button nativo em vez de simular um botão.",
-    "category": "Teclado",
+    "category": "Interação e teclado",
     "level": "A",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
     "keywords": [
@@ -101,7 +101,7 @@
     ],
     "title": "Ação disponível apenas com mouse ou toque",
     "summary": "Use um controle nativo que também possa ser operado pelo teclado.",
-    "category": "Teclado",
+    "category": "Interação e teclado",
     "level": "A",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard",
     "keywords": [
@@ -132,7 +132,7 @@
     ],
     "title": "Botão de ícone sem nome acessível",
     "summary": "Dê ao botão um nome que descreva a ação, mesmo quando só o ícone é visível.",
-    "category": "Imagens & Mídia",
+    "category": "Componentes e ARIA",
     "level": "A",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value",
     "keywords": [
@@ -162,7 +162,7 @@
     ],
     "title": "Indicador de foco removido via CSS",
     "summary": "Mantenha um indicador de foco claro e com contraste suficiente.",
-    "category": "Teclado",
+    "category": "Interação e teclado",
     "level": "AA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible",
     "keywords": [
@@ -220,7 +220,7 @@
     ],
     "title": "Link genérico sem contexto suficiente",
     "summary": "Escreva o destino ou propósito do link no próprio texto do link ou no contexto imediato.",
-    "category": "Teclado",
+    "category": "Interação e teclado",
     "level": "AA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context",
     "keywords": [
@@ -311,7 +311,7 @@
     ],
     "title": "Alvo de toque menor que o mínimo recomendado",
     "summary": "Ofereça alvos de pelo menos 24 × 24 px CSS ou espaçamento equivalente; 44 × 44 px é a meta aprimorada.",
-    "category": "Formulários",
+    "category": "Interação e teclado",
     "level": "AA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum",
     "keywords": [
@@ -371,7 +371,7 @@
     ],
     "title": "Sessão com tempo limite sem opção de ajuste",
     "summary": "Avise antes de expirar e permita estender, ajustar ou desativar o limite quando aplicável.",
-    "category": "Teclado",
+    "category": "Tempo e movimento",
     "level": "AA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable",
     "keywords": [
@@ -401,7 +401,7 @@
     ],
     "title": "Texto do link não identifica seu propósito sozinho",
     "summary": "Quando a meta é AAA, torne o destino compreensível apenas pelo texto do link.",
-    "category": "Teclado",
+    "category": "Interação e teclado",
     "level": "AAA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only",
     "keywords": [
@@ -430,7 +430,7 @@
     ],
     "title": "Jargão ou palavra incomum sem explicação",
     "summary": "Explique termos técnicos no contexto ou ofereça uma forma simples de consultar sua definição.",
-    "category": "Formulários",
+    "category": "Conteúdo e linguagem",
     "level": "AAA",
     "wcagUrl": "https://www.w3.org/WAI/WCAG22/Understanding/unusual-words",
     "keywords": [

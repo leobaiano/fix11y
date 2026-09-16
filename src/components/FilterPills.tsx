@@ -1,5 +1,6 @@
 "use client";
 
+import { RotateCcw } from "lucide-react";
 import type { WcagLevel, Category } from "@/types/faq";
 
 interface FilterPillsProps {
@@ -7,10 +8,11 @@ interface FilterPillsProps {
   selectedCategory: Category | "ALL";
   onSelectLevel: (level: WcagLevel | "ALL") => void;
   onSelectCategory: (category: Category | "ALL") => void;
+  onClearFilters: () => void;
 }
 
 const LEVELS: { value: WcagLevel | "ALL"; label: string; dot?: string }[] = [
-  { value: "ALL", label: "Todos" },
+  { value: "ALL", label: "Todos os níveis" },
   {
     value: "A",
     label: "Nível A · Requisito mínimo",
@@ -29,11 +31,14 @@ const LEVELS: { value: WcagLevel | "ALL"; label: string; dot?: string }[] = [
 ];
 
 const CATEGORIES: { value: Category | "ALL"; label: string }[] = [
-  { value: "ALL", label: "Todas" },
+  { value: "ALL", label: "Todas as categorias" },
   { value: "Formulários", label: "Formulários" },
-  { value: "Teclado", label: "Teclado" },
+  { value: "Interação e teclado", label: "Interação e teclado" },
+  { value: "Componentes e ARIA", label: "Componentes e ARIA" },
   { value: "Imagens & Mídia", label: "Imagens & Mídia" },
   { value: "Cores & Contraste", label: "Cores & Contraste" },
+  { value: "Conteúdo e linguagem", label: "Conteúdo e linguagem" },
+  { value: "Tempo e movimento", label: "Tempo e movimento" },
 ];
 
 function Pill({
@@ -70,7 +75,10 @@ export default function FilterPills({
   selectedCategory,
   onSelectLevel,
   onSelectCategory,
+  onClearFilters,
 }: FilterPillsProps) {
+  const hasActiveFilters = selectedLevel !== "ALL" || selectedCategory !== "ALL";
+
   return (
     <div
       className="sticky top-14 z-40 border-b border-white/5 bg-[#111827]/95 backdrop-blur-md"
@@ -78,9 +86,27 @@ export default function FilterPills({
       aria-label="Filtros de conteúdo"
     >
       <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Refine os resultados
+          </p>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={onClearFilters}
+              className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              <RotateCcw size={13} aria-hidden="true" />
+              Limpar filtros
+            </button>
+          )}
+        </div>
+
         {/* Row 1 – WCAG Level */}
         <fieldset className="mb-2">
-          <legend className="sr-only">Filtrar por nível WCAG</legend>
+          <legend className="mb-1.5 text-xs font-medium text-slate-300">
+            Nível WCAG
+          </legend>
           <div className="flex flex-wrap items-center gap-1.5">
             {LEVELS.map((lvl) => (
               <Pill
@@ -103,7 +129,9 @@ export default function FilterPills({
 
         {/* Row 2 – Categories */}
         <fieldset>
-          <legend className="sr-only">Filtrar por categoria</legend>
+          <legend className="mb-1.5 text-xs font-medium text-slate-300">
+            Categoria
+          </legend>
           <div className="flex flex-wrap items-center gap-1.5">
             {CATEGORIES.map((cat) => (
               <Pill

@@ -47,7 +47,7 @@ Toda a base de conhecimento do projeto é mantida em um único arquivo JSON loca
 - **`criteria`** *(opcional)*: Todos os critérios relacionados à falha, incluindo o principal. Use quando uma mesma correção atende ou viola mais de um critério.
 - **`title`**: Título resumo da falha de acessibilidade.
 - **`summary`** *(opcional)*: A solução recomendada em uma frase clara e acionável.
-- **`category`**: Categoria do problema. Aceita: `"Formulários"`, `"Teclado"`, `"Imagens & Mídia"` ou `"Cores & Contraste"`.
+- **`category`**: Categoria do problema. Aceita: `"Formulários"`, `"Interação e teclado"`, `"Componentes e ARIA"`, `"Imagens & Mídia"`, `"Cores & Contraste"`, `"Conteúdo e linguagem"` ou `"Tempo e movimento"`.
 - **`level`**: Nível de conformidade da WCAG. Aceita: `"A"`, `"AA"` ou `"AAA"`.
 - **`wcagUrl`**: Link direto para a documentação oficial da especificação no W3C.
 - **`keywords`** *(opcional)*: Termos de busca, sinônimos e termos de implementação (por exemplo: `"aria-label"`, `"modal"` e `"outline"`).

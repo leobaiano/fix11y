@@ -2,9 +2,12 @@ export type WcagLevel = 'A' | 'AA' | 'AAA';
 
 export type Category =
   | 'Formulários'
-  | 'Teclado'
+  | 'Interação e teclado'
+  | 'Componentes e ARIA'
   | 'Imagens & Mídia'
-  | 'Cores & Contraste';
+  | 'Cores & Contraste'
+  | 'Conteúdo e linguagem'
+  | 'Tempo e movimento';
 
 export interface FaqItem {
   id: string;

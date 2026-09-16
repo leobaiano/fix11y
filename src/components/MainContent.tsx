@@ -26,19 +26,42 @@ const LEVEL_DOT: Record<WcagLevel, string> = {
   AAA: "bg-[#3b82f6]",
 };
 
+function normalizeSearchText(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("pt-BR");
+}
+
+function getSearchableText(item: FaqItem) {
+  return [
+    item.title,
+    item.summary,
+    item.criterion,
+    item.criteria?.join(" "),
+    item.category,
+    item.keywords?.join(" "),
+    item.userImpact,
+    item.howToTest?.join(" "),
+    item.notes?.join(" "),
+    item.codeWrong,
+    item.codeRight,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 export default function MainContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<WcagLevel | "ALL">("ALL");
   const [selectedCategory, setSelectedCategory] = useState<Category | "ALL">("ALL");
 
   const filtered = useMemo(() => {
-    const term = searchTerm.toLowerCase().trim();
+    const term = normalizeSearchText(searchTerm.trim());
     return faqItems.filter((item) => {
       const matchesSearch =
         !term ||
-        item.title.toLowerCase().includes(term) ||
-        item.criterion.toLowerCase().includes(term) ||
-        item.category.toLowerCase().includes(term);
+        normalizeSearchText(getSearchableText(item)).includes(term);
       const matchesLevel = selectedLevel === "ALL" || item.level === selectedLevel;
       const matchesCategory =
         selectedCategory === "ALL" || item.category === selectedCategory;
@@ -65,6 +88,10 @@ export default function MainContent() {
         selectedCategory={selectedCategory}
         onSelectLevel={setSelectedLevel}
         onSelectCategory={setSelectedCategory}
+        onClearFilters={() => {
+          setSelectedLevel("ALL");
+          setSelectedCategory("ALL");
+        }}
       />
 
       <main
