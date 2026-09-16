@@ -44,7 +44,7 @@ export default function Header() {
 
           {/* GitHub link */}
           <a
-            href="https://github.com"
+            href="https://github.com/leobaiano/fix11y"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Repositório do Fix11y no GitHub (abre em nova aba)"
